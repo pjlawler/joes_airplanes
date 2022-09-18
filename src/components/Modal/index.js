@@ -15,68 +15,69 @@ const Modal = (props) => {
 
     // ensures that the n-number is not blank
     if (!formData.reg) {
-      setMessage('Error: a registration number is required to save the data')
+      setMessage("Error: a registration number is required to save the data");
       return null;
     }
 
     // ensures that the manufacturer name is not blank
     else if (!formData.mfr) {
-      setMessage('Error: a manufacturer name is required to save the data');
+      setMessage("Error: a manufacturer name is required to save the data");
       return null;
     }
 
     // ensures the model name is not blank
     else if (!formData.model) {
-      setMessage('Error: a model name is required to save the data');
+      setMessage("Error: a model name is required to save the data");
       return null;
     }
 
     // ensures the value is an actual number
     else if (!isValidAmount(formData.value)) {
-      setMessage('Error: please enter a valid value, do not enter commas, decimals or other characters - just digits.')
+      setMessage("Error: please enter a real number for the value.");
       return null;
     }
 
-    // if all the validations above pass, then retrieves and converts the formData in the form
+    // if all the validations above pass, then converts value to an integer and returns the formData
+
+    // rounds the value to a whole number
+    const roundedValue = parseFloat(
+      formData.value.replace(/,/gi, "")
+    ).toFixed();
+
     return {
       reg: formData.reg,
       mfr: formData.mfr,
       model: formData.model,
-      value: parseInt(formData.value),
+      value: roundedValue,
     };
   };
 
   // verifies that the data entered is a valid whole number
   const isValidAmount = (val) => {
-    // converts the text entry to an integer
-    const validate = parseInt(val);
-    console.log(validate, val)
-    // returns false if the entry was not a number is not NaN
-    if (validate !== validate) return false;
-    // returns as invalid if the text was not just digits
-    else if (validate != val) return false;
-    // returns as a valid amount
-    else return true;
+    console.log(val);
+    // removes any commas and verifies the number matches the string equivalent
+    let validate = val.replace(/,/gi, "");
+
+    // returns true if they are the same
+    return validate == parseFloat(validate);
   };
 
   // HANDLER FUNCTIONS
 
-  // updates the formstate whenever user moves between fields
+  // updates the formState whenever user moves between fields
   const handleChange = (e) => {
     setState({ ...formState, [e.target.name]: e.target.value });
   };
 
   // handles any button clicks on the modal form
   const handleButtonClick = (e) => {
-
-    // gets the form data if it's verified, it will be null if there's an error displayed in the modal
-    const verifiedFormData = validateData(formState);
-    
     switch (e.target.className) {
       case "save_button":
+        // validates the form data - if it's not valid it will be null with an error message displayed in the modal
+        const verifiedFormData = validateData(formState);
 
-        // ensures all the form data is valid before saving data
-        if (!verifiedFormData) return false;  
+        // if the data are invalid, then it will stop the save until the user corrects the error
+        if (!verifiedFormData) return false;
 
         // determines which CRUD operation to use based on if the user is adding or editing an airplane
         if (editingRecord !== null) {
@@ -94,7 +95,7 @@ const Modal = (props) => {
 
   // STATE
 
-  // stores the state for each of the forms fields
+  // state for each of the forms fields
   const [formState, setState] = useState(
     editingRecord === null
       ? {
@@ -111,14 +112,21 @@ const Modal = (props) => {
 
   return (
     <div className="modal_form">
-      {editingRecord !== null ? <h1 className="modal_title">Edit Airplane</h1> : <h1 className="modal_title">Add Airplane</h1>}
+      {/* title based on if editing or adding a record */}
+      {editingRecord !== null ? (
+        <h1 className="modal_title">Edit Airplane</h1>
+      ) : (
+        <h1 className="modal_title">Add Airplane</h1>
+      )}
       <div className="main_form">
         <div className="input_wrapper">
           <label htmlFor="input_reg">Reg #:</label>
           <input
             type="text"
             name="reg"
+            // executes the handleChange function when ever the user leaves the field
             onBlur={handleChange}
+            // if editing, the data is entered if not it's left null
             defaultValue={editingRecord !== null ? reg : null}
             placeholder={"Registration # (i.e. N337PC)"}
           />
@@ -158,6 +166,7 @@ const Modal = (props) => {
         </div>
       </div>
       <div className="button_wrapper">
+        {/* executes the button click handler when either buttons are clicked in the modal */}
         <button className="save_button" onClick={handleButtonClick}>
           Save
         </button>
@@ -165,6 +174,7 @@ const Modal = (props) => {
           Cancel
         </button>
       </div>
+      {/* displays an error message if any data are invalid */}
       <p className="error_message">{displayMessage}</p>
     </div>
   );

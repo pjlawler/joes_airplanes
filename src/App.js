@@ -1,7 +1,7 @@
 import Item from './components/Item';
 import Modal from './components/Modal';
 import React, { useState, useEffect } from 'react';
-import './index.css';
+import './App.css';
 
 function App() {
 
