@@ -140,7 +140,7 @@ function App() {
         )}
 
         {/* if there are no aircraft in the datatset then display the following */}
-        {(!data || data.length === 0) && <div>No Airplanes have been saved yet!</div>}
+        {(!data || data.length === 0) && <div>No airplanes have been saved yet!</div>}
 
         {/* provides the add button to add aircraft to the dataset */}
         <button className='add_button' onClick={buttonClick}>
