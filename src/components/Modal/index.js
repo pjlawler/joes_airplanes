@@ -6,29 +6,15 @@ const Modal = (props) => {
     props;
 
   // destructures the plane object if it exists, if not makes it an empty object
-  const { year, mfr, model, value } = plane ? plane : {};
+  const { reg, mfr, model, value } = plane ? plane : {};
 
   // DATA VALIDATORS
 
   const validateData = (formData) => {
     setMessage(null);
 
-    if (!isValidYear(formData.year)) {
-
-      // returns the message based on what the user had entered in the date field
-      switch (yearStatus(formData.year)) {
-        case 1:
-          setMessage("Error: please enter a valid date, this date isn't a valid number")
-          break;
-        case 2:
-          setMessage("Error: pleaser enter a valid date, this date isn't any valid year...")
-          break;
-        case 3:
-          setMessage("Error: please enter a valid date. Come on, the first airplane wasn't built until 1903...")
-          break;
-        case 4:
-          setMessage("Error: please enter a valid date. This date is in the future...")
-      }
+    if (!formData.reg) {
+      setMessage('Error: a registration number is required to save the data')
       return null;
     }
 
@@ -52,37 +38,13 @@ const Modal = (props) => {
 
     // if all the validations above pass, then retrieves and converts the formData in the form
     return {
-      year: parseInt(formData.year),
+      reg: formData.reg,
       mfr: formData.mfr,
       model: formData.model,
       value: parseInt(formData.value),
     };
   };
 
-  const yearStatus = (val) => {
-    // converts the text entry to an integer
-    const validate = parseInt(val);
-
-    // gets the current year
-    const currentYear = new Date().getFullYear();
-
-    // returns 1 if not a valid number
-    if (validate !== validate) return 1;
-    else if (validate != val) return 1;
-    // returns 2 if it's not a date per se
-    else if (validate < 1400 || validate > 2300) return 2;
-    // returns 3 if the date is before 1900
-    else if (validate < 1903) return 3;
-    // returns 3 if the date is in the future
-    else if (validate > currentYear) return 4;
-    // returns as a valid year
-    else return 0;
-  };
-
-  const isValidYear = (val) => {
-    // checks to see if entry made in the value field is a valid year between 1903 and the current year
-    return yearStatus(val) === 0;
-  };
 
   const isValidAmount = (val) => {
     // converts the text entry to an integer
@@ -92,7 +54,7 @@ const Modal = (props) => {
     if (validate !== validate) return false;
     // returns as invalid if the text was not just digits
     else if (validate != val) return false;
-    // returns as a valid year
+    // returns as a valid amount
     else return true;
   };
 
@@ -134,7 +96,7 @@ const Modal = (props) => {
   const [formState, setState] = useState(
     editingRecord === null
       ? {
-          year: "",
+          reg: "",
           mfr: "",
           model: "",
           value: "",
@@ -150,13 +112,13 @@ const Modal = (props) => {
       {editingRecord !== null ? <h1 className="modal_title">Edit Airplane</h1> : <h1 className="modal_title">Add Airplane</h1>}
       <div className="main_form">
         <div className="input_wrapper">
-          <label htmlFor="input_year">Year:</label>
+          <label htmlFor="input_reg">Reg #:</label>
           <input
             type="text"
-            name="year"
+            name="reg"
             onBlur={handleChange}
-            defaultValue={editingRecord !== null ? year : null}
-            placeholder={"Model Year (i.e. 2020)"}
+            defaultValue={editingRecord !== null ? reg : null}
+            placeholder={"Registration # (i.e. N337PC)"}
           />
         </div>
         <div className="input_wrapper">
@@ -189,7 +151,7 @@ const Modal = (props) => {
             name="value"
             onBlur={handleChange}
             defaultValue={editingRecord !== null ? value : null}
-            placeholder={"Value (i.e. 800,000)"}
+            placeholder={"Value (i.e. 800000)"}
           />
         </div>
       </div>

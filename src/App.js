@@ -5,10 +5,6 @@ import './index.css';
 
 function App() {
 
-  useEffect(() => {
-    // resetLocalStorage();
-  })
-
   // LOCAL STORAGE FUNCTIONS
 
   const getData = () => {
