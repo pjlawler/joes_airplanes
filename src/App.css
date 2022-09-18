@@ -3,8 +3,7 @@ body {
   box-sizing: border-box;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-
+    san
 }
 
 .page_title {
@@ -140,9 +139,7 @@ main {
   .item_row {
     display: block;
   }
-
 }
-
 
 @media only screen and (max-width: 525px) {
   .item_row {
@@ -161,5 +158,4 @@ main {
     left: 0px;
     margin-left: 0px;
   }
-
 }
