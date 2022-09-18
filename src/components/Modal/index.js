@@ -122,14 +122,14 @@ const Modal = (props) => {
           />
         </div>
         <div className="input_wrapper">
-          <label htmlFor="input_mfr">Mfg:</label>
+          <label htmlFor="input_mfr">Mfr:</label>
           <input
             type="text"
             id="input_mfr"
             onBlur={handleChange}
             name="mfr"
             defaultValue={editingRecord !== null ? mfr : null}
-            placeholder={"Manufacture (i.e. Cirrus)"}
+            placeholder={"Manufacturer (i.e. Cirrus)"}
           />
         </div>
         <div className="input_wrapper">
