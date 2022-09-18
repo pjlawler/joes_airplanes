@@ -54,7 +54,7 @@ const Modal = (props) => {
 
   // verifies that the data entered is a valid whole number
   const isValidAmount = (val) => {
-    console.log(val);
+
     // removes any commas and verifies the number matches the string equivalent
     let validate = val.replace(/,/gi, "");
 
