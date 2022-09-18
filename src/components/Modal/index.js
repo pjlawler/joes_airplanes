@@ -13,6 +13,7 @@ const Modal = (props) => {
   const validateData = (formData) => {
     setMessage(null);
 
+    // ensures that the n-number is not blank
     if (!formData.reg) {
       setMessage('Error: a registration number is required to save the data')
       return null;
@@ -45,7 +46,7 @@ const Modal = (props) => {
     };
   };
 
-
+  // verifies that the data entered is a valid whole number
   const isValidAmount = (val) => {
     // converts the text entry to an integer
     const validate = parseInt(val);
@@ -60,11 +61,12 @@ const Modal = (props) => {
 
   // HANDLER FUNCTIONS
 
+  // updates the formstate whenever user moves between fields
   const handleChange = (e) => {
-    // updates the formstate whenever user moves between fields
     setState({ ...formState, [e.target.name]: e.target.value });
   };
 
+  // handles any button clicks on the modal form
   const handleButtonClick = (e) => {
 
     // gets the form data if it's verified, it will be null if there's an error displayed in the modal
@@ -73,10 +75,10 @@ const Modal = (props) => {
     switch (e.target.className) {
       case "save_button":
 
-        // reutrns if the data is null, to allow user to correct data
+        // ensures all the form data is valid before saving data
         if (!verifiedFormData) return false;  
 
-        // determines which CRUD operation to use based on the user is adding or editing
+        // determines which CRUD operation to use based on if the user is adding or editing an airplane
         if (editingRecord !== null) {
           // update record
           updateAirplane(verifiedFormData, editingRecord);
