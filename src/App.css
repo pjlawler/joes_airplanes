@@ -1,38 +1,161 @@
-.App {
+body {
+  margin: 0;
+  box-sizing: border-box;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    san
+}
+
+.page_title {
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.item_row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px black solid;
+  width: 100%;
+  margin-top: 10px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 10px;
+  padding-right: 20px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.item_row_labels {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  font-size: 10px;
+  font-style: oblique;
+  font-weight: bold;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.item_row_labels #aircraft {
+  width: 300px;
+}
+
+.item_row_labels #value {
+  text-align: right;
+  width: 130px;
+}
+
+.airplane_wrapper {
+  display: flex;
+}
+
+.airplane_detail {
+  width: 300px;
+}
+
+.airplane_value {
+  text-align:right;
+  width: 150px;
+}
+
+button {
+  height: 25px;
+  width: 70px;
+  border: 1px black solid;
+  border-radius: 5px;
+  margin: 5px;
+}
+
+.delete_button {
+  background: tomato;
+}
+
+.edit_button, .save_button, .cancel_button {
+  background: lightgray;
+}
+
+.add_button {
+  margin-top: 20px;
+  background: greenyellow;
+}
+
+main {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  width: 90%;
+  max-width:1000px;
+  margin: 0 auto;
 }
 
-.App-link {
-  color: #61dafb;
+.page_title {
+  text-align: center;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.modal_form {
+  width: 100%;
+  max-width: 500px;
+  height: 300px;
+  position: absolute;
+  left: 50%;
+  top: 80px;
+  margin-left: -265px;
+  border: 1px black solid;
+  border-radius: 20px;
+  background: whitesmoke;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 10px;
+}
+
+.main_form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  height: 150px;
+}
+
+.input_wrapper {
+  display: flex;
+}
+
+.input_wrapper label {
+  width: 65px;
+}
+
+.input_wrapper input {
+  width: 200px;
+}
+
+.error_message {
+  font-size: 12px;
+  font-style: italic;
+  color: tomato;
+  font-weight: bold;
+  text-align: center;
+}
+
+
+@media only screen and (max-width: 680px) {
+  .item_row {
+    display: block;
   }
-  to {
-    transform: rotate(360deg);
+}
+
+@media only screen and (max-width: 525px) {
+  .item_row {
+    display: block;
+  }
+
+  .item_row_labels #aircraft {
+    display: none;
+  }
+  
+  .item_row_labels #value {
+    display: none;
+  }
+
+  .modal_form {
+    left: 0px;
+    margin-left: 0px;
   }
 }
